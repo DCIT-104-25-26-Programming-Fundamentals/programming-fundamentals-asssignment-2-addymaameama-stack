@@ -65,3 +65,115 @@
 #include <string>
 using namespace std;
 
+
+  #include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std;
+
+void readMatrix(int m[10][10], int r, int c) {
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            cout << "Enter element [" << i << "][" << j << "]: ";
+            cin >> m[i][j];
+        }
+    }
+}
+
+void printMatrix(int m[10][10], int r, int c) {
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            cout << setw(5) << m[i][j];
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    // PART A - Transpose
+    int r, c;
+    int mat[10][10];
+    int trans[10][10];
+
+    cout << "PART A - Transpose" << endl;
+    cout << "Enter number of rows: ";
+    cin >> r;
+    cout << "Enter number of columns: ";
+    cin >> c;
+
+    readMatrix(mat, r, c);
+
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            trans[j][i] = mat[i][j];
+        }
+    }
+
+    cout << endl << "Original Matrix:" << endl;
+    printMatrix(mat, r, c);
+    cout << endl << "Transposed Matrix:" << endl;
+    printMatrix(trans, c, r);
+
+    // PART B - Addition
+    int r2, c2;
+    int a[10][10], b[10][10], sum[10][10];
+
+    cout << endl << "PART B - Addition" << endl;
+    cout << "Enter number of rows: ";
+    cin >> r2;
+    cout << "Enter number of columns: ";
+    cin >> c2;
+
+    cout << "Matrix A:" << endl;
+    readMatrix(a, r2, c2);
+    cout << "Matrix B:" << endl;
+    readMatrix(b, r2, c2);
+
+    for (int i = 0; i < r2; i++) {
+        for (int j = 0; j < c2; j++) {
+            sum[i][j] = a[i][j] + b[i][j];
+        }
+    }
+
+    cout << endl << "Sum Matrix:" << endl;
+    printMatrix(sum, r2, c2);
+
+    // PART C - Multiplication
+    int rA, cA, rB, cB;
+    int matA[10][10], matB[10][10], product[10][10];
+
+    cout << endl << "PART C - Multiplication" << endl;
+    cout << "Enter rows of Matrix A: ";
+    cin >> rA;
+    cout << "Enter columns of Matrix A: ";
+    cin >> cA;
+    cout << "Enter rows of Matrix B: ";
+    cin >> rB;
+    cout << "Enter columns of Matrix B: ";
+    cin >> cB;
+
+    if (cA != rB) {
+        cout << "Error: Columns of A must equal rows of B." << endl;
+        return 0;
+    }
+
+    cout << "Matrix A:" << endl;
+    readMatrix(matA, rA, cA);
+    cout << "Matrix B:" << endl;
+    readMatrix(matB, rB, cB);
+
+    for (int i = 0; i < rA; i++) {
+        for (int j = 0; j < cB; j++) {
+            int total = 0;
+            for (int k = 0; k < cA; k++) {
+                total = total + matA[i][k] * matB[k][j];
+            }
+            product[i][j] = total;
+        }
+    }
+
+    cout << endl << "Product Matrix:" << endl;
+    printMatrix(product, rA, cB);
+
+    return 0;
+}
